@@ -1,33 +1,36 @@
 import {InferActionsTypes} from "./reduxStore";
 
 
-const ADD_MESSAGE = 'DIALOGS/ADD-MESSAGE';
+const ADD_PROPERTIES = 'ADD_PROPERTIES';
+const SHOW_PROPERTIES= 'SHOW_PROPERTIES'
 
-export type DialogType = {
+export type modelType ={
     id: number
-    name: string
-}
-export type MessageType = {
-    id: number
-    message: string
+    meaning?: string
+    result?: string | number
 }
 
 let initialState = {
-        messages: [
-            {id: 1, message: 'loh gena loh'},
-            {id: 2, message: 'loh misha loh'},
-            {id: 3, message: 'loh pasha loh'},
-            {id: 4, message: 'loh nikita loh'},
-            {id: 5, message: 'loh tima loh'},
-        ] as Array<MessageType>,
-        dialogs: [
-            {id: 1, name: 'gena'},
-            {id: 2, name: 'misha'},
-            {id: 3, name: 'pasha'},
-            {id: 4, name: 'nikita'},
-            {id: 5, name: 'tima'},
-        ] as Array<DialogType>,
-    count: 6,
+    kerher :
+        [
+            {
+                id: 1,
+                meaning: 'название',
+                result: 'kerher',
+
+            },
+            {
+                id: 2,
+                meaning: 'модель',
+                result: 'пылесос'
+            },
+            {
+                id:3 ,
+                meaning: 'мощность',
+                result: 20
+            }
+        ] as Array<modelType>,
+    count: 4
 
 }
 
@@ -36,18 +39,26 @@ export type initialStateType = typeof initialState
 type ActionsType = InferActionsTypes<typeof actions>
 
 
-const dialogReducer = (state = initialState, action: ActionsType): initialStateType => {
+const pageReducer = (state = initialState, action: ActionsType): initialStateType => {
     switch (action.type){
-        case ADD_MESSAGE: {
-            let newMessage = {
+        case ADD_PROPERTIES: {
+            let newProperty = {
                 id: state.count,
-                message: action.message,
+                meaning: action.text1,
+                result: action.text2,
             };
 
             return {...state,
-                messages: [newMessage, ...state.messages],
+                kerher: [...state.kerher, newProperty],
                 count: state.count+1
             };
+        }
+        case SHOW_PROPERTIES: {
+            let stateCopy = {...state}
+            stateCopy.kerher = [...state.kerher]
+            stateCopy.kerher.forEach(element => console.log(element))
+            return state
+
         }
         default:
             return state;
@@ -58,11 +69,15 @@ const dialogReducer = (state = initialState, action: ActionsType): initialStateT
 
 
 export const actions = {
-    addMessageActionCreator: (message: string) => ({
-        type: ADD_MESSAGE,
-        message
+    addPropertyActionCreator: (text1: string , text2: string | number) => ({
+        type: ADD_PROPERTIES,
+        text1,
+        text2
+    }as const),
+    showPropertyActionCreator: () => ({
+        type: SHOW_PROPERTIES,
     }as const)
 }
 
 
-export default dialogReducer;
+export default pageReducer;

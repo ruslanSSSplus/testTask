@@ -1,24 +1,15 @@
 import {applyMiddleware, combineReducers, createStore, compose, Action} from "redux";
-import profileReducer from "./profileReducer";
-import dialogReducer from "./dialogReducer";
-import musicReducer from "./musicReducer";
-import friendsReducer from "./friendsReducer";
-import sideBarReducer from "./sideBarReducer";
-import newsReducer from "./newsReducer";
-import authReducer from "./authReducer";
+
+
+
 import thunkMiddleware, {ThunkAction} from 'redux-thunk'
-import appReducer from "./appReducer";
+import pageReducer from "./pageReducer";
+
 
 
 let rootReducer = combineReducers({
-    profile: profileReducer,
-    dialogs: dialogReducer,
-    musics: musicReducer,
-    friends: friendsReducer,
-    news: newsReducer,
-    sideBar: sideBarReducer,
-    auth: authReducer,
-    app: appReducer
+
+    page: pageReducer,
 
 })
 

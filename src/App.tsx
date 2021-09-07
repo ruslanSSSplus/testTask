@@ -1,13 +1,17 @@
 
+import {Provider} from "react-redux";
 import './App.css';
 import {Main} from "./Main";
 
-function App() {
-  return (
-    <div className="App">
-     <Main />
-    </div>
-  );
+import store, {AppStateType} from "./redux/reduxStore";
+
+
+const AppAllTree: React.FC = () => {
+    return <Provider store={store}>
+        <Main />
+    </Provider>
+
+
 }
 
-export default App;
+export default AppAllTree
